@@ -1,0 +1,9 @@
+.home_menu_wrap{
+  width: 100%;
+  height: calc(100% - 3.5rem);
+  overflow-y: scroll;
+  background-color: #fff;
+}
+.home_menu_wrap .iconfont{
+  color: #999;
+}

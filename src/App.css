@@ -1,0 +1,18 @@
+@import '~antd/dist/antd.css';
+.app_container{
+  width: 500px;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.formWrap{
+  /* margin-top: 200px; */
+  width: 100%;
+
+}
+.app_row{
+  display: flex;
+  justify-content: center;
+}

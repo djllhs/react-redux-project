@@ -1,0 +1,46 @@
+a{
+  text-decoration-line: none;
+}
+.home_layout{
+  height: 100%;
+}
+.home_sider.ant-layout-sider{
+  color: #fff;
+}
+.home_logo_wrap{
+  width: 100%;
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+.home_logo{
+  width: 6.25rem;
+  height: 2.125rem;
+  margin: auto;
+}
+
+.home_inner_header{
+  height: 3.5rem;
+  background-color: #fff;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.home_inner_content{
+  box-sizing: border-box;
+  padding: .625rem;
+  height: calc(100% - 3.5rem);
+  overflow: hidden;
+}
+.home_inner_content > div {
+  background-color: #fff;
+  padding: 0 .625rem;
+}
+
+.table{
+  background-color: #fff;
+  padding-right: .625rem;
+}
