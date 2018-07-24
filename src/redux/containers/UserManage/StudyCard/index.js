@@ -1,23 +1,23 @@
+/* global console*/
 /*
  * @Author: daijialing
  * @Date: 2018-07-10 16:36:32
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-10 16:46:21
+ * @Last Modified time: 2018-07-23 18:02:14
  * 学习卡
  */
 
 
-import React from "react";
-import { connect } from "react-redux";
-import {Table, Popconfirm, message} from 'antd';
-import { BookAuthStatus,OrderStatus } from "utils/dtoTypes";
-import { isValidValue, getPagination, getTableScrollY,getAmount } from "utils/util";
-import ConditionsOfQuery from "./ConditionsOfQuery";
-import { MultiLineText } from "components";
+import React from 'react';
+import { connect } from 'react-redux';
+import {Table} from 'antd';
+import { BookAuthStatus } from 'utils/dtoTypes';
+import { isValidValue, getPagination, getTableScrollY } from 'utils/util';
+import ConditionsOfQuery from './ConditionsOfQuery';
 
-import * as actions from "actions";
+import * as actions from 'actions';
 
-class StudyCard extends React.Component{
+class StudyCard extends React.Component {
   constructor(props) {
     super(props);
     console.log('props :', props);
@@ -27,7 +27,7 @@ class StudyCard extends React.Component{
       pagination,
       requestParams: props.userStudyCard.requestParams || {currentPage: pagination.current},
       scrollY: 0
-    }
+    };
   }
 
   componentWillMount() {
@@ -37,42 +37,42 @@ class StudyCard extends React.Component{
   }
   componentDidMount() {
     this.setState({
-        scrollY: getTableScrollY()
-    })
+      scrollY: getTableScrollY()
+    });
   }
   fetchList = (param = {}) => {
     this.props.dispatch(actions.userStudyCardList(param))
-    .then(res => {
-      const data = res.data;
-      console.log('data :', data,this.props.userStudyCard.requestParams);
-      if(data.success){
-        this.setState({
-          list: data.data.pageData,
-          pagination: getPagination({current: data.data.currentPage,total: data.data.totalRecords}),
-          requestParams: this.props.userStudyCard.requestParams
-        })
-      }
-    })
+      .then(res => {
+        const data = res.data;
+        console.log('data :', data, this.props.userStudyCard.requestParams);
+        if (data.success) {
+          this.setState({
+            list: data.data.pageData,
+            pagination: getPagination({current: data.data.currentPage, total: data.data.totalRecords}),
+            requestParams: this.props.userStudyCard.requestParams
+          });
+        }
+      });
   }
   handleTableChange = (page) => {
-    this.fetchList(Object.assign(this.state.requestParams,{currentPage: page.current}));
+    this.fetchList(Object.assign(this.state.requestParams, {currentPage: page.current}));
     this.props.dispatch(actions.pageChange(page));
   }
 
   onChange = (e) => {
-    Object.assign(this.state.requestParams, {[e.target.name]: e.target.value,currentPage: 1});
-    this.props.dispatch(actions.pageChange(Object.assign(this.state.pagination,{current: 1})));
+    Object.assign(this.state.requestParams, {[e.target.name]: e.target.value, currentPage: 1});
+    this.props.dispatch(actions.pageChange(Object.assign(this.state.pagination, {current: 1})));
   }
 
   selectChange = (newState) => {
     Object.assign(this.state.requestParams, newState, {currentPage: 1});
-    this.props.dispatch(actions.pageChange(Object.assign(this.state.pagination,{current: 1})));
+    this.props.dispatch(actions.pageChange(Object.assign(this.state.pagination, {current: 1})));
   }
 
   handleClickQuery = () => {
     this.fetchList(this.state.requestParams);
   }
-  render(){
+  render() {
     const columns = [
       {
         title: '记录编号',
@@ -100,7 +100,7 @@ class StudyCard extends React.Component{
         dataIndex: 'name',
         key: 'name',
         width: '15%',
-        render:  text => isValidValue(text)
+        render: text => isValidValue(text)
       },
       {
         title: '卡号',
@@ -114,7 +114,7 @@ class StudyCard extends React.Component{
         dataIndex: 'status',
         key: 'status',
         width: '8%',
-        render: text => text != null ? `${BookAuthStatus[+text]}` : `--`
+        render: text => text != null ? `${BookAuthStatus[+text]}` : '--'
       },
       {
         title: '创建人',
@@ -136,30 +136,30 @@ class StudyCard extends React.Component{
         key: 'gmtModified',
         width: '12%',
         render: text => isValidValue(text)
-      },
+      }
     ];
-    return(
+    return (
       <div>
         <ConditionsOfQuery onChange={this.onChange}
-            callbackParent={this.selectChange}
-            onClick={this.handleClickQuery}
-            requestParams = {this.state.requestParams}
-            _this = {this}
+          callbackParent={this.selectChange}
+          onClick={this.handleClickQuery}
+          requestParams = {this.state.requestParams}
+          _this = {this}
         />
         <Table columns={columns}
           dataSource={this.state.list}
           loading={this.props.userStudyCard.isLoading}
-          className="table"
+          className='table'
           onChange={this.handleTableChange}
           pagination={this.state.pagination}
           rowKey={record => record.id}
           scroll={{ y: this.state.scrollY}}
         />
       </div>
-    )
+    );
   }
 }
 
 export default connect(
-  state => ({login: state.login, other: state.other,userStudyCard: state.userStudyCard})
+  state => ({login: state.login, other: state.other, userStudyCard: state.userStudyCard})
 )(StudyCard);

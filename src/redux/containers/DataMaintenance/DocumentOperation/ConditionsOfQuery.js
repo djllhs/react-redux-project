@@ -1,47 +1,36 @@
-/**
- * Created by admin on 2017/1/9.
- * 用户管理/基本信息
+/*
+ * @Author: daijialing
+ * @Date: 2018-07-10 10:28:44
+ * @Last Modified by: daijialing
+ * @Last Modified time: 2018-07-24 16:12:16
+ * 查询条件组件
  */
+
 import React from 'react';
 import { Row, Col, Form, Select  } from 'antd';
-import { AppTypes, ChannelTypes } from 'utils/dtoTypes';
+import { BookAuthStatus } from 'utils/dtoTypes';
 import { FormInput, FormSelect, FormDate } from '@/redux/components/FormItems';
-import CreateAccount from './CreateAccount';
 
 const Option = Select.Option;
 
 class ConditionsOfQuery extends React.Component {
-  getChannel(value) {
-    this.props.callbackParent({
-      channel: value
-    });
+  getStatus(value) {
+    this.props.callbackParent({status: value});
     this.props.onClick();
   }
-
   getStartDate(value, dateString) {
     this.props.callbackParent({
-      startGmtCreate: dateString
+      startGmtModified: dateString
+    });
+    this.props.onClick();
+  }
+  getEndDate(value, dateString) {
+    this.props.callbackParent({
+      endGmtModified: dateString
     });
     this.props.onClick();
   }
 
-  getEndDate(value, dateString) {
-    this.props.callbackParent({
-      endGmtCreate: dateString
-    });
-    this.props.onClick();
-  }
-  /**
-   * 获取注册平台
-   * @param  {[type]} value [注册平台]
-   * @return {[type]}       [description]
-  */
-  getPlatform(value) {
-    this.props.callbackParent({
-      appType: value
-    });
-    this.props.onClick();
-  }
   render() {
     const formLayout = {
         labelCol: {span: 7},
@@ -51,10 +40,6 @@ class ConditionsOfQuery extends React.Component {
     return (
       <Form horizontal='true' onChange={this.props.onChange} className='conditionForm'>
         <Row style={{padding: '10px 0'}}>
-          <CreateAccount onClick={this.props.onClick}
-            reload={this.props.reload}
-            _this = {this.props._this}
-          />
         </Row>
         <Row type='flex' justify='start' align='start'>
           <Col span={6}>
@@ -68,41 +53,32 @@ class ConditionsOfQuery extends React.Component {
             />
           </Col>
           <Col span={6}>
-            <FormInput labelName='用户名'
+            <FormInput labelName='学习卡号'
               formLayout = {formLayout}
-              inputName = 'userName'
-              placeholder = '请输入用户名'
+              inputName = 'authCode'
+              placeholder = '请输入学习卡号'
               onChange = { this.props.onChange }
               onPressEnter = { this.props.onClick }
-              defaultValue = { requestParams.userName }
+              defaultValue = { requestParams.authCode }
             />
           </Col>
           <Col span={6}>
-            <FormInput labelName='手机号'
+            <FormInput labelName='书籍名'
               formLayout = {formLayout}
-              inputName = 'mobile'
-              placeholder = '请输入手机号'
+              inputName = 'bookName'
+              placeholder = '请输入书籍名'
               onChange = { this.props.onChange }
               onPressEnter = { this.props.onClick }
-              defaultValue = { requestParams.mobile }
+              defaultValue = { requestParams.bookName }
             />
           </Col>
           <Col span={6}>
-            <FormSelect labelName='注册平台'
+            <FormSelect labelName='状态'
               formLayout = {formLayout}
-              defaultValue={requestParams.appType || ''}
-              onChange = { this.getPlatform.bind(this) }
-              defaultOption = {<Option value=''>请选择注册平台</Option>}
-              typesObj = {AppTypes}
-            />
-          </Col>
-          <Col span={6}>
-            <FormSelect labelName='登陆渠道'
-              defaultValue={requestParams.channel || ''}
-              defaultOption = {<Option value=''>请选择登陆渠道</Option>}
-              typesObj = {ChannelTypes}
-              onChange = { this.getChannel.bind(this) }
-              formLayout = {formLayout}
+              defaultValue={requestParams.status || ''}
+              onChange = { this.getStatus.bind(this) }
+              defaultOption = {<Option value=''>请选择状态</Option>}
+              typesObj = {BookAuthStatus}
             />
           </Col>
           <Col span={6}>
@@ -112,7 +88,7 @@ class ConditionsOfQuery extends React.Component {
               format = 'YYYY-MM-DD HH:mm:ss'
               dateStyle = {{ width: '100%' }}
               onChange = {this.getStartDate.bind(this)}
-              defaultValue = { requestParams.startGmtCreate }
+              defaultValue = { requestParams.startGmtModified }
             />
           </Col>
           <Col span={6}>
@@ -122,7 +98,7 @@ class ConditionsOfQuery extends React.Component {
               format = 'YYYY-MM-DD HH:mm:ss'
               dateStyle = {{ width: '100%' }}
               onChange = {this.getEndDate.bind(this)}
-              defaultValue = { requestParams.endGmtCreate }
+              defaultValue = { requestParams.endGmtModified }
             />
           </Col>
         </Row>

@@ -1,5 +1,5 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import {
   Default,
   UserInfo,
@@ -8,7 +8,8 @@ import {
   StudyCard,
   BookSelf,
   ErrorInfo,
-} from "./containers";
+  DocumentOperation
+} from './containers';
 const ChildrenRoutes  = props => {
   const {match} = props;
   return (
@@ -19,10 +20,12 @@ const ChildrenRoutes  = props => {
       <Route exact  path = {`${match.path}/purchaseHistory`}  component = {PurchaseHistory}/>
       <Route exact  path = {`${match.path}/studyCards`}  component = {StudyCard}/>
       <Route exact  path = {`${match.path}/bookSelf`}  component = {BookSelf}/>
-      <Route  path = {`${match.path}/ErrorInfo/:userId?`}  component = {ErrorInfo}/>
+      <Route  path = {`${match.path}/errorInfo/:userId?`}  component = {ErrorInfo}/>
+
+      <Route  path = {`${match.path}/documentsOperation`}  component = {DocumentOperation}/>
 
     </Switch>
-  )
-}
+  );
+};
 
 export default ChildrenRoutes;

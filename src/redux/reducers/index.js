@@ -8,6 +8,9 @@ import userPurchaseHistory from "./userPurchaseHistory";
 import userStudyCard from "./userStudyCard";
 import userBookSelf from "./userBookSelf";
 import userErrorInfo from "./userErrorInfo";
+import documentOperation from "./documentOperation";
+
+
 
 
 const reducer = combineReducers({
@@ -20,6 +23,7 @@ const reducer = combineReducers({
   userStudyCard,
   userBookSelf,
   userErrorInfo,
+  documentOperation,
 })
 
 export default reducer;

@@ -1,3 +1,4 @@
-import IWMenu from "./IWMenu/iwMenu";
-import MultiLineText from "./MultiLineText";
-export {IWMenu, MultiLineText};
+import IWMenu from './IWMenu/iwMenu';
+import MultiLineText from './MultiLineText';
+import ShowMoreInfoModal from './ShowMoreInfoModal';
+export {IWMenu, MultiLineText, ShowMoreInfoModal };
