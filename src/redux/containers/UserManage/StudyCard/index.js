@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-10 16:36:32
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-23 18:02:14
+ * @Last Modified time: 2018-07-25 17:00:02
  * 学习卡
  */
 
@@ -14,7 +14,7 @@ import {Table} from 'antd';
 import { BookAuthStatus } from 'utils/dtoTypes';
 import { isValidValue, getPagination, getTableScrollY } from 'utils/util';
 import ConditionsOfQuery from './ConditionsOfQuery';
-
+import { IWBreadcrumb } from 'components';
 import * as actions from 'actions';
 
 class StudyCard extends React.Component {
@@ -140,6 +140,7 @@ class StudyCard extends React.Component {
     ];
     return (
       <div>
+        <IWBreadcrumb data={[{ name: '学习卡', link: null }]}/>
         <ConditionsOfQuery onChange={this.onChange}
           callbackParent={this.selectChange}
           onClick={this.handleClickQuery}

@@ -3,19 +3,20 @@
  * @Author: daijialing
  * @Date: 2018-07-17 10:42:30
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-24 16:11:46
+ * @Last Modified time: 2018-07-27 19:31:26
  * 文案操作
  */
 import React from 'react';
 import { connect } from 'react-redux';
-import {Table} from 'antd';
+import {Table, message} from 'antd';
 import { OnlineStatus } from 'utils/dtoTypes';
-import { isValidValue, getPagination, getTableScrollY } from 'utils/util';
+import { isValidValue, getPagination, getTableScrollY, getCurrentPage, PAGESIZE } from 'utils/util';
 import ConditionsOfQuery from './ConditionsOfQuery';
-import { ShowMoreInfoModal } from 'components';
-
+import AddOrEditModal from './AddOrEditModal';
+import { ShowMoreInfoModal, DmOnlineOrOffline, DmDeleteModal } from 'components';
+import { IWBreadcrumb } from 'components';
 import * as actions from 'actions';
-
+import { DOCUMENT_OPERATION_LIST } from '@/api';
 class DocumentOperation extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +25,7 @@ class DocumentOperation extends React.Component {
     this.state = {
       list: [],
       pagination,
-      requestParams: props.documentOperation.requestParams || {currentPage: pagination.current},
+      requestParams: props.documentOperation.requestParams || {currentPage: pagination.current, pageSize: PAGESIZE},
       scrollY: 0
     };
   }
@@ -39,16 +40,27 @@ class DocumentOperation extends React.Component {
       scrollY: getTableScrollY()
     });
   }
-  fetchList = (param = {}) => {
-    this.props.dispatch(actions.documentOperationList(param))
+  fetchList = (params = {}) => {
+    this.props.dispatch(actions.asyncAction('DOCUMENT_OPERATION_LIST', {
+      url: DOCUMENT_OPERATION_LIST,
+      method: 'get',
+      params
+    }))
       .then(res => {
-        const data = res.data;
+        if (!res.data.success) {
+          message.error(res.data.msg);
+          return;
+        }
+        let data = res.data,
+          pageData = data.data.pageData,
+          currentPage = data.data.currentPage,
+          totalRecords = data.data.totalRecords;
         console.log('data :', data, this.props.documentOperation.requestParams);
         if (data.success) {
           this.setState({
-            list: data.data.pageData,
-            pagination: getPagination({current: data.data.currentPage, total: data.data.totalRecords}),
-            requestParams: this.props.documentOperation.requestParams
+            list: pageData,
+            pagination: getPagination({current: currentPage, total: totalRecords}),
+            requestParams: params
           });
         }
       });
@@ -72,6 +84,7 @@ class DocumentOperation extends React.Component {
     this.fetchList(this.state.requestParams);
   }
   render() {
+    const { requestParams, list, pagination } = this.state;
     const columns = [
       {
         title: '名称',
@@ -109,23 +122,31 @@ class DocumentOperation extends React.Component {
         title: '管理',
         width: '10%',
         render: (record) => {
-
+          return <DmOnlineOrOffline record ={record} callback = {this.handleClickQuery}/>;
         }
       },
       {
         title: '操作',
         width: '12%',
         render: record => {
-
+          return (
+            <div style={{display: 'inline-flex'}}>
+              <AddOrEditModal isEdit = {true} record = {record} _this = {this} reload = {this.handleClickQuery}/>
+              <DmDeleteModal record = {record}
+                callback = {() => {this.fetchList(Object.assign(requestParams, {currentPage: getCurrentPage(pagination.current, pagination)})); }}
+                content = '确认删除该文案？'
+              />
+            </div>
+          );
         }
       }
     ];
     return (
       <div>
+        <IWBreadcrumb data={[{ name: '文案操作', link: null }]}/>
         <ConditionsOfQuery onChange={this.onChange}
           callbackParent={this.selectChange}
           onClick={this.handleClickQuery}
-          requestParams = {this.state.requestParams}
           _this = {this}
         />
         <Table columns={columns}

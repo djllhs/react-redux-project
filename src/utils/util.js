@@ -1,4 +1,6 @@
+
 /* global window,document,console, localStorage*/
+export const PAGESIZE = 10;
 export function isEmptyObj(obj) {
   let name;
   for (name in obj)
@@ -48,7 +50,7 @@ export function getPagination(pagination) {
     showQuickJumper: true,
     // showSizeChanger: true,
     current: 1,
-    pageSize: 10
+    pageSize: PAGESIZE
   };
   return Object.assign({}, defaultPagination, pagination);
 }
@@ -57,11 +59,12 @@ export function getPagination(pagination) {
 export function getTableScrollY(isShowPage = true) {
   const formHeight = document.getElementsByClassName('conditionForm')[0].offsetHeight,
     tableHeaderHeight = document.getElementsByClassName('ant-table-thead')[0].offsetHeight,
-    headerHeight = document.getElementsByClassName('home_inner_header ')[0].offsetHeight,
+    headerHeight = document.getElementsByClassName('home_inner_header')[0].offsetHeight,
+    breadcrumbHeight = document.getElementsByClassName('breadcrumb')[0].offsetHeight,
     tablePaginationHeight = 64,
     padding = 20;
   console.log(formHeight, tableHeaderHeight, headerHeight);
-  return window.innerHeight - formHeight - tableHeaderHeight - tablePaginationHeight - headerHeight - padding;
+  return window.innerHeight - formHeight - tableHeaderHeight - tablePaginationHeight - headerHeight - padding - breadcrumbHeight;
 }
 
 // 计算size
@@ -119,3 +122,18 @@ export const myRouter = {
     });
   }
 };
+
+// 获取当前页。当操作为删除的时候
+export function getCurrentPage(current, page) {
+  if (page.total >= page.pageSize && page.total % page.pageSize == 1)
+    return current - 1;
+  return current;
+}
+
+// 增加 富文本的内容的最外层标签
+export function replaceEditorContentTag(html) {
+  let start = '<div id="content" style="word-wrap:break-word; word-break:break-all;">',
+    wrapDiv = '<div id="content" style="word-wrap:break-word; word-break:break-all;"></div>';
+  !html.startsWith(start) ? html = wrapDiv.replace('</div>', html + '</div>') : html;
+  return html;
+}

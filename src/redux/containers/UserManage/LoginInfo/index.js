@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-09 10:45:44
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-24 15:46:30
+ * @Last Modified time: 2018-07-25 16:59:44
  */
 
 // 登录信息
@@ -13,7 +13,7 @@ import {Table} from 'antd';
 import { NetTypes, LoginAppTypes } from 'utils/dtoTypes';
 import { isValidValue, getPagination, getTableScrollY, getFileSize, isEmptyObj } from 'utils/util';
 import ConditionsOfQuery from './ConditionsOfQuery';
-
+import { IWBreadcrumb } from 'components';
 import * as actions from 'actions';
 
 class LoginInfo extends React.Component {
@@ -190,6 +190,7 @@ class LoginInfo extends React.Component {
     ];
     return (
       <div>
+        <IWBreadcrumb data={[{ name: '登录信息', link: null }]}/>
         <ConditionsOfQuery onChange={this.onChange}
           callbackParent={this.selectChange}
           onClick={this.handleClickQuery}

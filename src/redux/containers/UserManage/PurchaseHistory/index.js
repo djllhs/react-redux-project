@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-05 17:38:03
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-24 14:58:26
+ * @Last Modified time: 2018-07-25 17:00:39
  *购买历史
  */
 
@@ -15,7 +15,7 @@ import { isValidValue, getPagination, getTableScrollY, getAmount } from 'utils/u
 import ConditionsOfQuery from './ConditionsOfQuery';
 import { MultiLineText } from 'components';
 import { USER_PURCHASE_HISTORY_LIST_EXPORT } from '@/api';
-
+import { IWBreadcrumb } from 'components';
 import * as actions from 'actions';
 
 class PurchaseHistory extends React.Component {
@@ -226,6 +226,7 @@ class PurchaseHistory extends React.Component {
     ];
     return (
       <div>
+        <IWBreadcrumb data={[{ name: '购买记录', link: null }]}/>
         <ConditionsOfQuery onChange={this.onChange}
           callbackParent={this.selectChange}
           onClick={this.handleClickQuery}

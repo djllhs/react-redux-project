@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-05 17:38:03
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-23 17:52:39
+ * @Last Modified time: 2018-07-25 17:02:52
  */
 // 基本信息
 import React from 'react';
@@ -13,6 +13,7 @@ import {Table} from 'antd';
 import { AppTypes } from 'utils/dtoTypes';
 import { isValidValue, getPagination, getTableScrollY } from 'utils/util';
 import ConditionsOfQuery from './ConditionsOfQuery';
+import { IWBreadcrumb } from 'components';
 
 import * as actions from 'actions';
 
@@ -146,6 +147,7 @@ class UserInfo extends React.Component {
     ];
     return (
       <div>
+        <IWBreadcrumb data={[{ name: '基本信息', link: null }]}/>
         <ConditionsOfQuery onChange={this.onChange}
           callbackParent={this.selectChange}
           onClick={this.handleClickQuery}

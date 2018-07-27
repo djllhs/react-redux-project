@@ -19,6 +19,7 @@ export const USER_BOOK_LIST = 'user_book_list';
 export const USER_ERROR_INFO_LIST = 'user_error_info_list';
 
 export const DOCUMENT_OPERATION_LIST = 'document_operation_list';
+export const DOCUMENT_OPERATION_UPDATE = 'document_operation_update';
 export const BANNER_MANAGEMENT_LIST = 'banner_management_list';
 export const PUSH_MANAGEMENT_LIST = 'push_management_list';
 export const CLICK_READ_BOOK_LIST = 'click_read_book_list';

@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-10 16:36:32
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-24 15:59:53
+ * @Last Modified time: 2018-07-25 17:01:36
  * 学习卡
  */
 
@@ -14,7 +14,7 @@ import {Table} from 'antd';
 import { UserBookStatus } from 'utils/dtoTypes';
 import { isValidValue, getPagination, getTableScrollY } from 'utils/util';
 import ConditionsOfQuery from './ConditionsOfQuery';
-
+import { IWBreadcrumb } from 'components';
 import * as actions from 'actions';
 
 class BookSelf extends React.Component {
@@ -133,6 +133,7 @@ class BookSelf extends React.Component {
     ];
     return (
       <div>
+        <IWBreadcrumb data={[{ name: '书架', link: null }]}/>
         <ConditionsOfQuery onChange={this.onChange}
           callbackParent={this.selectChange}
           onClick={this.handleClickQuery}

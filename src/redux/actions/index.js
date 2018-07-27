@@ -2,7 +2,8 @@ import * as types from './actionTypes';
 import {
   postData,
   getData,
-  putData
+  putData,
+  fetchData
 } from 'utils/fetchData';
 import {
   LOGIN,
@@ -93,6 +94,20 @@ export const pageChange = (pagination = {}) => ({
   type: types.PAGE_CHANGE,
   pagination
 });
+
+// 通用异步action
+export function asyncAction(type, args) {
+  return {
+    type: types[type],
+    payload: {
+      promise: fetchData(args),
+      list: args
+    },
+    meta: {
+      list: args
+    }
+  };
+}
 
 // 用户基本信息列表
 export const userBasicInfoList = (param = {}) => {

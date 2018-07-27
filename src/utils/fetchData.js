@@ -2,7 +2,7 @@
  * @Author: daijialing
  * @Date: 2018-06-14 14:33:20
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-23 17:19:18
+ * @Last Modified time: 2018-07-27 18:13:43
  */
 /* global window*/
 import axios from 'axios';
@@ -13,6 +13,12 @@ const isDP        = !!~PRODUCTION.indexOf('localhost') || !!~PRODUCTION.indexOf(
 
 const HOST        = 'https://' + (isDP ? DEVELOPMENT : PRODUCTION);
 axios.defaults.baseURL = HOST;
+const config = {
+  method: 'post',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+};
 const headers = {
   'Content-Type': 'application/x-www-form-urlencoded'
 };
@@ -38,5 +44,13 @@ export const putData = (url, param) => {
 export const deleteData = (url, param) => {
   return (
     axios.put(`${url}`, param)
+  );
+};
+
+// 统一的异步请求
+export const fetchData = (param) => {
+  param = Object.assign({}, config, param);
+  return (
+    axios(param)
   );
 };

@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-10 17:29:43
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-24 15:46:46
+ * @Last Modified time: 2018-07-25 17:01:29
  * 错误信息
  */
 
@@ -16,6 +16,7 @@ import ConditionsOfQuery from './ConditionsOfQuery';
 import ErrorLogModal from './ErrorLogModal';
 import { USER_ERROR_INFO_LIST } from '@/api';
 import * as actions from 'actions';
+import { IWBreadcrumb } from 'components';
 import './index.css';
 
 class ErrorInfo extends React.Component {
@@ -233,6 +234,7 @@ class ErrorInfo extends React.Component {
     ];
     return (
       <div>
+        <IWBreadcrumb data={[{ name: '错误信息', link: null }]}/>
         <ConditionsOfQuery onChange={this.onChange}
           callbackParent={this.selectChange}
           onClick={this.handleClickQuery}
