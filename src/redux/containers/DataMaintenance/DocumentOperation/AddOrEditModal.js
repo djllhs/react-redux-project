@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-25 17:46:19
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-27 19:36:09
+ * @Last Modified time: 2018-07-30 11:10:58
  */
 
 import React from 'react';
@@ -35,8 +35,6 @@ class AddOrEditModal extends React.Component {
   }
   onOk = () => {
     const {_this, record, isEdit} = this.props;
-    console.log(this.iWBraftEditor);
-    console.log(this.iWBraftEditor.getContent());
     this.props.form.validateFields((errors, values) => {
       if (!!errors) return;
       const content = this.iWBraftEditor.isEmpty() ? null :  this.iWBraftEditor.getContent();

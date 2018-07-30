@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-17 10:42:30
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-27 19:31:26
+ * @Last Modified time: 2018-07-30 11:21:14
  * 文案操作
  */
 import React from 'react';
@@ -63,6 +63,9 @@ class DocumentOperation extends React.Component {
             requestParams: params
           });
         }
+      })
+      .catch(() => {
+        console.log('Oops errors!');
       });
   }
   handleTableChange = (page) => {
@@ -136,6 +139,9 @@ class DocumentOperation extends React.Component {
                 callback = {() => {this.fetchList(Object.assign(requestParams, {currentPage: getCurrentPage(pagination.current, pagination)})); }}
                 content = '确认删除该文案？'
               />
+              <a href={record.url} target="blank">
+                <i className="iconfont" title="获取链接">&#xe6ad;</i>
+              </a>
             </div>
           );
         }
