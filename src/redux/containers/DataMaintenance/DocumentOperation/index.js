@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-17 10:42:30
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-30 11:21:14
+ * @Last Modified time: 2018-07-30 14:29:32
  * 文案操作
  */
 import React from 'react';
@@ -84,10 +84,11 @@ class DocumentOperation extends React.Component {
   }
 
   handleClickQuery = () => {
+
     this.fetchList(this.state.requestParams);
   }
   render() {
-    const { requestParams, list, pagination } = this.state;
+    const { requestParams, pagination } = this.state;
     const columns = [
       {
         title: '名称',

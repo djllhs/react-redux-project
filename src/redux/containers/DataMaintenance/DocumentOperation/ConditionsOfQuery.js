@@ -2,14 +2,14 @@
  * @Author: daijialing
  * @Date: 2018-07-10 10:28:44
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-27 19:41:32
+ * @Last Modified time: 2018-07-30 14:29:32
  * 查询条件组件
  */
 
 import React from 'react';
 import { Row, Col, Form, Select  } from 'antd';
 import { OnlineStatus } from 'utils/dtoTypes';
-import { FormInput, FormSelect, FormDate } from '@/redux/components/FormItems';
+import { FormInput, FormSelect } from '@/redux/components/FormItems';
 import AddOrEditModal from './AddOrEditModal';
 const Option = Select.Option;
 
