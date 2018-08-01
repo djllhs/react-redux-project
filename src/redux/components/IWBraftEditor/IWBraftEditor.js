@@ -36,7 +36,7 @@ class IWBraftEditor extends React.Component {
 
   render() {
     const editorProps = {
-      height: 500,
+      height: this.props.height || 500,
       contentFormat: 'html',
       initialContent: this.props.initialContent,
       onChange: this.handleChange,

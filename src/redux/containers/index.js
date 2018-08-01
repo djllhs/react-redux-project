@@ -8,6 +8,9 @@ import BookSelf from './UserManage/BookSelf';
 import ErrorInfo from './UserManage/ErrorInfo';
 
 import DocumentOperation from './DataMaintenance/DocumentOperation';
+import BannerManage from './DataMaintenance/BannerManage';
+
+import TestUeditor from './Test/TestUeditor';
 export {
   Home,
   Default,
@@ -17,5 +20,7 @@ export {
   StudyCard,
   BookSelf,
   ErrorInfo,
-  DocumentOperation
+  DocumentOperation,
+  BannerManage,
+  TestUeditor
 };

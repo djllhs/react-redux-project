@@ -5,6 +5,7 @@ import ShowMoreInfoModal from './ShowMoreInfoModal';
 import DmOnlineOrOffline from './dmOnlineOrOffline/DmOnlineOrOffline';
 import DmDeleteModal from './DeleteModal/DmDeleteModal';
 import IWBraftEditor from './IWBraftEditor/IWBraftEditor';
+import IWUeditor from './IWUeditor/IWUeditor';
 
 export {
   IWMenu,
@@ -13,5 +14,6 @@ export {
   ShowMoreInfoModal,
   DmOnlineOrOffline,
   DmDeleteModal,
-  IWBraftEditor
+  IWBraftEditor,
+  IWUeditor
 };

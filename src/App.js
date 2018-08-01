@@ -1,4 +1,4 @@
-/* global console, localStorage*/
+/* global console,window  localStorage*/
 import React, { Component } from 'react';
 import { Form, Input, Button, Icon, Row, Col, message } from 'antd';
 import './App.css';

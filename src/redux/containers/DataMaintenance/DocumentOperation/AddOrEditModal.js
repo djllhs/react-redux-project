@@ -1,9 +1,9 @@
-/* global console */
+/* global console window */
 /*
  * @Author: daijialing
  * @Date: 2018-07-25 17:46:19
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-30 11:10:58
+ * @Last Modified time: 2018-07-31 10:17:38
  */
 
 import React from 'react';
@@ -66,7 +66,8 @@ class AddOrEditModal extends React.Component {
     const {getFieldDecorator} = this.props.form;
     const editorProps = {
       contentId: 0,
-      initialContent: record.content || null
+      initialContent: record.content || null,
+      height: 300
     };
     const formItemLayout = {
       labelCol: { span: 7 },

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>document</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript" src="dialogs/internal.js"></script>
+</head>
+<style type="text/css">
+    *{margin:0;padding:0;color: #838383;}
+    table{font-size: 12px;margin: 10px;line-height: 30px}
+    .txt{width:200px;height:21px;line-height:21px;border:1px solid #d7d7d7;}
+    label{
+        width: 60px;
+        display: inline-block;
+    }
+</style>
+<body>
+<table>
+    <tr>
+        <td>
+            <label for="name_doc">
+                文案名
+            </label>
+        </td>
+        <td>
+            <input class="txt" id="name_doc" type="text" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label for="code">文案code</label>
+        </td>
+        <td>
+            <input class="txt" type="text" id="code" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label  for="content">
+                文案内容
+            </label>
+        </td>
+        <td>
+            <input class="txt" type="text" id="content" disabled="disabled"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <label  for="type">
+               文案类型
+            </label>
+        </td>
+        <td>
+            <select  class="txt" name="type" id="type">
+                <option value="0">UI组件</option>
+                <option value="1">普通提示</option>
+            </select>
+        </td>
+    </tr>
+</table>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    function generateUrl(url) {
+        const DEVELOPMENT = 'iwatch.daily.bookln.cn';
+        const PRODUCTION  = window.location.host;
+        const isDP        = !!~PRODUCTION.indexOf('localhost') || !!~PRODUCTION.indexOf('192.168.0.25');
+        const HOST        = 'https://' + (isDP ? DEVELOPMENT : PRODUCTION);
+        return HOST + url;
+    }
+//    let range = editor.selection.getRange(),
+//        name = $G("name"), // 文案名，新增时可编辑，编辑时不可编辑
+//        code = $G("code"), // code，新增时可编辑，编辑时不可编辑
+//        content = $G("content"),
+//        orgName;
+//    console.log("--------------");
+//    console.log(range);
+//    console.log(range.getCommonAncestor());
+//    console.log("--------------");
+var range = editor.selection.getRange(),
+    link = range.collapsed ? editor.queryCommandValue( "link" ) : editor.selection.getStart(),
+    id_text = 0,
+//    text = $G('text'),
+    name_doc = $G('name_doc'), // 文案名，新增时可编辑，编辑时不可编辑
+    code = $G('code'), // code，新增时可编辑，编辑时不可编辑
+    type = $G('type'), // type，新增时可编辑，编辑时可编辑
+    content = $G("content"), // code，新增时可编辑，编辑时可编辑
+    rangeLink = domUtils.findParentByTagName(range.getCommonAncestor(),'a',true),
+    orgName,
+    orgCode,
+    orgType;
+link = domUtils.findParentByTagName( link, "a", true );
+console.log(range);
+console.log("link-------",link);
+console.log("rangeLink---",rangeLink);
+console.log("getStart---",editor.selection.getText());
+//sessionStorage.setItem("demandDocReload", false);
+if(link){ // 编辑
+//    const data_doc = link.getAttribute("title").split("~")
+    orgName = link.getAttribute("title");
+    orgCode = link.getAttribute("data-code");
+    orgType = link.getAttribute("data-type");
+    console.log(orgName, orgCode, orgType);
+    name_doc.value = orgName;
+    code.value = orgCode;
+    type.value = orgType;
+    content.value = link.innerHTML;
+    name_doc.setAttribute("disabled", "disabled");
+    code.setAttribute("disabled", "disabled");
+    content.removeAttribute("disabled");
+    link.setAttribute("data-change", 0);
+    link.setAttribute("style", "color: #5DB10A");
+    console.log(link.getAttribute("name"));
+}else { //新增
+
+    name_doc.removeAttribute("disabled");
+    code.removeAttribute("disabled");
+    if(range.endOffset == range.startOffset){
+        content.removeAttribute("disabled");
+    }
+}
+
+
+function handleDialogOk() {
+
+    if(!!name_doc.value && !!code.value){
+//        const
+////            id = link.getAttribute("id"),
+//            url = link ? generateUrl("/prj_text") + "/" + 52: generateUrl("/prj_text"),
+//            type_ajax = link ? "PUT" : "POST",
+//            data = {
+//                name: name_doc.value,
+//                code: code.value,
+//                content: content.value,
+//                type: type.value,
+//                textType: 1,
+//                demandId: sessionStorage.getItem("demandId")
+//            };
+//         let  success
+//        console.log(type);
+        if(!link){
+//            editor.focus();
+            const _html = '<a style="color: #5DB10A;text-decoration : underline"   href="prj_text_nochange_null" title="'+name_doc.value+ '~'+ code.value+'~'+ type.value+'">'+content.value+'</a>'
+//            editor.execCommand("inserthtml","<a style='color: #5DB10A;text-decoration : underline'  href='prj_text_nochange_null' title='"+name_doc.value+ "~"+ code.value+"~"+ type.value+"'>"+content.value+"</a>");
+//            editor.execCommand("inserthtml",_html);
+            editor.execCommand("link", {
+                url: content.value,
+                title: name_doc.value,
+                'data-id': 0,
+                'data-code': code.value,
+                'data-type': type.value,
+                "data-change" : 1,
+//                "data-text" : content.value,
+                href: content.value,
+                style: "color: #5DB10A;"
+            });
+//
+
+//            range.insertNode(<a id="prj_text_nochange_null" data-content-id='prj_text_nochange_null'>content.value</a>)
+        }else {
+//            let data_doc = link.getAttribute("title").split("~");
+            link.innerHTML = content.value;
+//            data_doc[2] = type.value;
+            link.setAttribute("data-type", type.value);
+            link.setAttribute("data-text", content.value);
+//            link.setAttribute("title", data_doc.join("~"));
+        }
+//         $.ajax(url,{
+//             data: data,
+//             type: type_ajax,
+//             async: false, // 同步
+//             success(res){
+//                 success = true;
+//                 console.log("res-", res);
+//                 console.log("success-", success);
+//              if(res.success &&  res.data){
+//                 success = true;
+//                 if(!link){
+//                     editor.focus();
+//                     editor.execCommand("inserthtml", "<a style='color: #5DB10A;text-decoration : underline' id='52' title='"+name_doc.value+ "~"+ code.value+"~"+ type.value+"'>"+content.value+"</a>");
+//                 }else {
+//                     let data_doc = link.getAttribute("title").split("~");
+//                     link.innerHTML = content.value;
+//                     data_doc[2] = type.value;
+//                     link.setAttribute("title", data_doc.join("~"));
+//                 }
+//               }else  success = false;
+//             },
+//             error(res){
+//                 success = false;
+//                 console.log(res);
+//             }
+//         })
+        /*UE.ajax.request(url,{
+            data: data,
+            type: type,
+            async: false, // 同步
+            onsuccess: function(xhr ){
+//                alert(res.data);
+                const res = JSON.parse(xhr.responseText);
+                console.log("success-", success);
+                console.log("res-", xhr ,xhr.responseText  );
+                console.log("link-", link, !link);
+                console.dir(typeof  res);
+//                alert(editor.getContent());
+//                if(res.success && res.data){
+                if(res.success &&  res.data){
+                    success = true;
+                    if(!link){
+                        editor.focus();
+                        editor.execCommand("inserthtml", "<a style='color: #5DB10A;text-decoration : underline' id='51' title='"+name_doc.value+ "~"+ code.value+"~"+ type.value+"'>"+content.value+"</a>");
+                    }else {
+                        const data_doc = link.getAttribute("title").split("~");
+                        link.innerHTML = content.value;
+                        data_doc[2] = type.value
+                        link.setAttribute("title", data_doc.join("~"));
+                    }
+                }else  success = false;
+
+
+//                }
+            },
+            onerror: function(xhr){
+                success = false;
+                alert("error")
+            }
+        });*/
+//        sessionStorage.setItem("demandDocReload", success);
+//        console.log("success----",success)
+
+    }
+}
+dialog.onok = handleDialogOk;
+
+</script>
+
+</html>
