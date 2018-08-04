@@ -37,6 +37,8 @@ class App extends Component {
             this.props.dispatch(actions.menuChange());
             this.props.history.push('/index');
 
+          }).catch(() => {
+            console.log('error :');
           });
       });
     });
