@@ -44,3 +44,21 @@ a{
   background-color: #fff;
   padding-right: .625rem;
 }
+
+/* 面包屑 */
+.breadcrumb {
+  background-color: white;
+  border-bottom: 1px solid #e8e8e8;
+  /* padding: 12px 16px; */
+  /* margin: -16px -16px 16px -16px; */
+  box-sizing: border-box;
+  padding: .625rem;
+}
+.breadcrumb-item {
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
+}

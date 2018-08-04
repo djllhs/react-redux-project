@@ -2,7 +2,7 @@
  * @Author: daijialing
  * @Date: 2018-07-06 14:39:25
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-06 16:00:15
+ * @Last Modified time: 2018-07-23 17:28:52
  */
 
 import React from 'react';
@@ -11,34 +11,34 @@ import {
   Form,
   Input,
   DatePicker
-} from "antd";
+} from 'antd';
 import moment from 'moment';
 const Option = Select.Option;
 const FormItem = Form.Item;
 
 // 下拉选项
-export const Options = (typesObj) => {
+export const options = (typesObj) => {
   const arr = [];
   for (let [key, value] of Object.entries(typesObj)) {
     const NewOption = <Option value = { key } key = { key } > { value} </Option>;
     arr.push(NewOption);
   }
   return arr;
-}
+};
 
 // 输入表单组件
 export const FormInput = (props) => {
   return (
-  <FormItem label = { props.labelName } {...props.formLayout}>
-    <Input name = { props.inputName }
-      placeholder = { props.placeholder }
-      onChange = { props.onChange }
-      onPressEnter = { props.onPressEnter}
-      defaultValue = { props.defaultValue }
-    />
-  </FormItem>
-  )
-}
+    <FormItem label = { props.labelName } {...props.formLayout}>
+      <Input name = { props.inputName }
+        placeholder = { props.placeholder }
+        onChange = { props.onChange }
+        onPressEnter = { props.onPressEnter}
+        defaultValue = { props.defaultValue }
+      />
+    </FormItem>
+  );
+};
 
 // 下拉选择组件
 export const FormSelect = (props) => {
@@ -47,12 +47,12 @@ export const FormSelect = (props) => {
       <Select defaultValue = {props.defaultValue }
         onChange = {props.onChange}
       >
-       {props.defaultValue != null ? props.defaultOption : null}
-       { Options(props.typesObj)}
+        {props.defaultValue != null ? props.defaultOption : null}
+        { options(props.typesObj)}
       </Select>
     </FormItem>
-  )
-}
+  );
+};
 // 时间组件
 export const FormDate = (props) => {
   return (
@@ -62,8 +62,8 @@ export const FormDate = (props) => {
         format= { props.format }
         style={ props.dateStyle }
         onChange={ props.onChange }
-        defaultValue = { props.defaultValue != null ? moment(props.defaultValue, props.format): null }
+        defaultValue = { props.defaultValue != null ? moment(props.defaultValue, props.format) : null }
       />
     </FormItem>
-  )
-}
+  );
+};

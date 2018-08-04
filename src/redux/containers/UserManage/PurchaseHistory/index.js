@@ -1,23 +1,24 @@
+/* global console, window*/
 /*
  * @Author: daijialing
  * @Date: 2018-07-05 17:38:03
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-10 15:49:07
+ * @Last Modified time: 2018-07-25 17:00:39
  *购买历史
  */
 
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import { connect } from 'react-redux';
 import {Table, Popconfirm, message} from 'antd';
-import { OrderTypes,OrderStatus } from "utils/dtoTypes";
-import { isValidValue, getPagination, getTableScrollY,getAmount } from "utils/util";
-import ConditionsOfQuery from "./ConditionsOfQuery";
-import { MultiLineText } from "components";
-import { USER_PURCHASE_HISTORY_LIST_EXPORT } from "@/api";
+import { OrderTypes, OrderStatus } from 'utils/dtoTypes';
+import { isValidValue, getPagination, getTableScrollY, getAmount } from 'utils/util';
+import ConditionsOfQuery from './ConditionsOfQuery';
+import { MultiLineText } from 'components';
+import { USER_PURCHASE_HISTORY_LIST_EXPORT } from '@/api';
+import { IWBreadcrumb } from 'components';
+import * as actions from 'actions';
 
-import * as actions from "actions";
-
-class PurchaseHistory extends React.Component{
+class PurchaseHistory extends React.Component {
   constructor(props) {
     super(props);
     console.log('props :', props);
@@ -27,7 +28,7 @@ class PurchaseHistory extends React.Component{
       pagination,
       requestParams: props.userPurchaseHistory.requestParams || {currentPage: pagination.current},
       scrollY: 0
-    }
+    };
   }
 
   componentWillMount() {
@@ -37,75 +38,75 @@ class PurchaseHistory extends React.Component{
   }
   componentDidMount() {
     this.setState({
-        scrollY: getTableScrollY()
-    })
+      scrollY: getTableScrollY()
+    });
   }
   fetchList = (param = {}) => {
     this.props.dispatch(actions.userPurchaseHistoryList(param))
-    .then(res => {
-      const data = res.data;
-      console.log('data :', data,this.props.userPurchaseHistory.requestParams);
-      if(data.success){
-        this.setState({
-          list: data.data.pageData,
-          pagination: getPagination({current: data.data.currentPage,total: data.data.totalRecords}),
-          requestParams: this.props.userPurchaseHistory.requestParams
-        })
-      }
-    })
+      .then(res => {
+        const data = res.data;
+        console.log('data :', data, this.props.userPurchaseHistory.requestParams);
+        if (data.success) {
+          this.setState({
+            list: data.data.pageData,
+            pagination: getPagination({current: data.data.currentPage, total: data.data.totalRecords}),
+            requestParams: this.props.userPurchaseHistory.requestParams
+          });
+        }
+      });
   }
   handleTableChange = (page) => {
-    this.fetchList(Object.assign(this.state.requestParams,{currentPage: page.current}));
+    this.fetchList(Object.assign(this.state.requestParams, {currentPage: page.current}));
     this.props.dispatch(actions.pageChange(page));
   }
 
   onChange = (e) => {
-    Object.assign(this.state.requestParams, {[e.target.name]: e.target.value,currentPage: 1});
-    this.props.dispatch(actions.pageChange(Object.assign(this.state.pagination,{current: 1})));
+    Object.assign(this.state.requestParams, {[e.target.name]: e.target.value, currentPage: 1});
+    this.props.dispatch(actions.pageChange(Object.assign(this.state.pagination, {current: 1})));
   }
 
   selectChange = (newState) => {
     Object.assign(this.state.requestParams, newState, {currentPage: 1});
-    this.props.dispatch(actions.pageChange(Object.assign(this.state.pagination,{current: 1})));
+    this.props.dispatch(actions.pageChange(Object.assign(this.state.pagination, {current: 1})));
   }
 
   handleClickQuery = () => {
     this.fetchList(this.state.requestParams);
   }
   // 是否显示 退款按钮
-  isShow = (payTime)=>{
+  isShow = (payTime) => {
     const newPayTime = new Date(payTime).valueOf(),
-        todayStart = new Date(new Date().setHours(0, 0, 0, 0)).valueOf(),
-        todayEnd = new Date(new Date().setHours(23,59,59,59)).valueOf();
+      todayStart = new Date(new Date().setHours(0, 0, 0, 0)).valueOf(),
+      todayEnd = new Date(new Date().setHours(23, 59, 59, 59)).valueOf();
 
-    if(newPayTime >= todayStart && newPayTime <= todayEnd){
-        return true;
-    }
+    if (newPayTime >= todayStart && newPayTime <= todayEnd)
+      return true;
+
     return false;
   }
   // 退款
   refund = (id) => {
     this.props.dispatch(actions.userPurchaseHistoryItemRefund(id))
-    .then(res => {
-      if(res.data.success){
-        message.success('退款成功');
-        this.handleClickQuery()
-      }else message.error(res.data.msg || '退款失败')
-    })
+      .then(res => {
+        if (res.data.success) {
+          message.success('退款成功');
+          this.handleClickQuery();
+        } else message.error(res.data.msg || '退款失败');
+      });
   }
 
   // 导出
   handleExport = () => {
-    let url =`${USER_PURCHASE_HISTORY_LIST_EXPORT}?download=true`,
+    let url = `${USER_PURCHASE_HISTORY_LIST_EXPORT}?download=true`,
       requestParams = this.state.requestParams;
-    for (let i in  requestParams) {
-        url += `&${i}=${requestParams[i]}`;
-    }
-    console.log("url----",url,requestParams);
+    for (let i in  requestParams)
+      url += `&${i}=${requestParams[i]}`;
+
+    console.log('url----', url, requestParams);
     // return;
     window.location.href = url;
   }
-  render(){
+  render() {
     const columns = [
       {
         title: '订单编号',
@@ -133,7 +134,7 @@ class PurchaseHistory extends React.Component{
         dataIndex: 'title',
         key: 'title',
         width: '10%',
-        render:  text => !!text  ? <MultiLineText text={text}/> : "--"
+        render: text => !!text  ? <MultiLineText text={text}/> : '--'
       },
       {
         title: '描述',
@@ -147,7 +148,7 @@ class PurchaseHistory extends React.Component{
         dataIndex: 'orderType',
         key: 'orderType',
         width: '6%',
-        render: text => text != null ? `${OrderTypes[+text]}` : `--`
+        render: text => text != null ? `${OrderTypes[+text]}` : '--'
       },
       {
         title: '商家名',
@@ -176,7 +177,7 @@ class PurchaseHistory extends React.Component{
         key: 'status',
         width: '6%',
         render: text => {
-            return text != null ? `${OrderStatus[+text]}`:`--`
+          return text != null ? `${OrderStatus[+text]}` : '--';
         }
       },
       {
@@ -207,7 +208,7 @@ class PurchaseHistory extends React.Component{
         render: (text, record) => {
           return this.isShow(record.payTime) ? (
             <div>
-              <Popconfirm placement="topRight"
+              <Popconfirm placement='topRight'
                 title={
                   <div>
                     <div>是否退款?</div>
@@ -216,36 +217,37 @@ class PurchaseHistory extends React.Component{
                 }
                 onConfirm = {this.refund.bind(this, record.id)}
               >
-                <i className="iconfont" title="退款" style={{color: "#3ca6fe", cursor: "pointer"}}>&#xe7a9;</i>
+                <i className='iconfont' title='退款' style={{color: '#3ca6fe', cursor: 'pointer'}}>&#xe7a9;</i>
               </Popconfirm>
             </div>
-          ) : null
+          ) : null;
         }
       }
     ];
-    return(
+    return (
       <div>
+        <IWBreadcrumb data={[{ name: '购买记录', link: null }]}/>
         <ConditionsOfQuery onChange={this.onChange}
-            callbackParent={this.selectChange}
-            onClick={this.handleClickQuery}
-            handleExport={this.handleExport}
-            requestParams = {this.state.requestParams}
-            _this = {this}
+          callbackParent={this.selectChange}
+          onClick={this.handleClickQuery}
+          handleExport={this.handleExport}
+          requestParams = {this.state.requestParams}
+          _this = {this}
         />
         <Table columns={columns}
           dataSource={this.state.list}
           loading={this.props.userPurchaseHistory.isLoading}
-          className="table"
+          className='table'
           onChange={this.handleTableChange}
           pagination={this.state.pagination}
           rowKey={record => record.id}
           scroll={{ y: this.state.scrollY}}
         />
       </div>
-    )
+    );
   }
 }
 
 export default connect(
-  state => ({login: state.login, other: state.other,userPurchaseHistory: state.userPurchaseHistory})
+  state => ({login: state.login, other: state.other, userPurchaseHistory: state.userPurchaseHistory})
 )(PurchaseHistory);
