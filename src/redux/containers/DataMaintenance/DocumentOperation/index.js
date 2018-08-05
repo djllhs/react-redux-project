@@ -125,7 +125,11 @@ class DocumentOperation extends React.Component {
         title: '管理',
         width: '10%',
         render: (record) => {
-          return <DmOnlineOrOffline record ={record} callback = {this.handleClickQuery}/>;
+          return <DmOnlineOrOffline record ={record}
+            callback = {this.handleClickQuery}
+            api = {DOCUMENT_OPERATION_LIST}
+            moduleName = '文案'
+          />;
         }
       },
       {
