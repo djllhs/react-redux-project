@@ -8,6 +8,7 @@ import BookSelf from './UserManage/BookSelf';
 import ErrorInfo from './UserManage/ErrorInfo';
 
 import DocumentOperation from './DataMaintenance/DocumentOperation';
+import PushManage from './DataMaintenance/PushManage';
 export {
   Home,
   Default,
@@ -17,5 +18,6 @@ export {
   StudyCard,
   BookSelf,
   ErrorInfo,
-  DocumentOperation
+  DocumentOperation,
+  PushManage
 };

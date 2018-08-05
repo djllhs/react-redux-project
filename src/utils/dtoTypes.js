@@ -327,6 +327,23 @@ export const MenuLevels = {
   2: '二级',
   3: '三级'
 };
+
+// 推送类型
+export const PushTypes  = {
+  5: '书籍',
+  6: '链接',
+  7: 'apptext',
+  11: '课程'
+};
+
+// 推送状态
+export const PushStatus = {
+  1: '未推送',
+  2: '准备推送',
+  3: '推送中',
+  4: '推送完成',
+  5: '推送中止'
+};
 // 客户类型
 export const CustomerCrmTypes = {
   1: '图书公司',

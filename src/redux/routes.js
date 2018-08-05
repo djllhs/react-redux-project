@@ -8,7 +8,8 @@ import {
   StudyCard,
   BookSelf,
   ErrorInfo,
-  DocumentOperation
+  DocumentOperation,
+  PushManage
 } from './containers';
 const ChildrenRoutes  = props => {
   const {match} = props;
@@ -23,6 +24,7 @@ const ChildrenRoutes  = props => {
       <Route  path = {`${match.path}/errorInfo/:userId?`}  component = {ErrorInfo}/>
 
       <Route  path = {`${match.path}/documentsOperation`}  component = {DocumentOperation}/>
+      <Route  path = {`${match.path}/pushManage`}  component = {PushManage}/>
 
     </Switch>
   );
