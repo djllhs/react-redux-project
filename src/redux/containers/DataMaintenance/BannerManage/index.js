@@ -2,7 +2,7 @@
  * @Author: daijialing
  * @Date: 2018-07-30 15:18:52
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-30 16:25:52
+ * @Last Modified time: 2018-08-02 10:10:32
  * banner管理
  */
 /* global console */
@@ -14,7 +14,7 @@ import { BannerEffectiveStatus } from 'utils/dtoTypes';
 import { isValidValue, getPagination, getTableScrollY, getCurrentPage, PAGESIZE } from 'utils/util';
 import ConditionsOfQuery from './ConditionsOfQuery';
 import AddOrEditModal from './AddOrEditModal';
-import { ShowMoreInfoModal, DmOnlineOrOffline, DmDeleteModal } from 'components';
+import {  DmDeleteModal } from 'components';
 import { IWBreadcrumb } from 'components';
 import * as actions from 'actions';
 import { BANNER_MANAGEMENT_LIST, BANNER_MANAGEMENT_LOCATIONS,  BANNER_MANAGEMENT_ACTIONS} from '@/api';
@@ -189,16 +189,20 @@ class BannerManage extends React.Component {
         title: '操作',
         width: '10%',
         render: record => {
+          let url = `${BANNER_MANAGEMENT_LIST}/${record.id}/delete`;
           return (
             <div style={{display: 'inline-flex'}}>
-              <AddOrEditModal isEdit = {true} record = {record} _this = {this} reload = {this.handleClickQuery}/>
+              <AddOrEditModal isEdit = {true}
+                record = {record} _this = {this}
+                reload = {this.handleClickQuery}
+                locations = {this.state.locations}
+                actions = {this.state.actions}
+              />
               <DmDeleteModal record = {record}
                 callback = {() => {this.fetchList(Object.assign(requestParams, {currentPage: getCurrentPage(pagination.current, pagination)})); }}
-                content = '确认删除该文案？'
+                content = '确认删除该banner？'
+                url = {url}
               />
-              <a href={record.url} target="blank">
-                <i className="iconfont" title="获取链接">&#xe6ad;</i>
-              </a>
             </div>
           );
         }
@@ -212,6 +216,7 @@ class BannerManage extends React.Component {
           onClick={this.handleClickQuery}
           _this = {this}
           locations = {this.state.locations}
+          actions = {this.state.actions}
         />
         <Table columns={columns}
           dataSource={this.state.list}

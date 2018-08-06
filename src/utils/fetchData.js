@@ -2,7 +2,7 @@
  * @Author: daijialing
  * @Date: 2018-06-14 14:33:20
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-27 18:13:43
+ * @Last Modified time: 2018-08-02 14:11:18
  */
 /* global window*/
 import axios from 'axios';
@@ -37,11 +37,6 @@ export const postData = (url, param) => {
 };
 
 export const putData = (url, param) => {
-  return (
-    axios.put(`${url}`, param)
-  );
-};
-export const deleteData = (url, param) => {
   return (
     axios.put(`${url}`, param)
   );

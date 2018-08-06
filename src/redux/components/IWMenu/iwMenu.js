@@ -72,7 +72,7 @@ class IWMenu extends React.Component {
           return (
             <SubMenu key={m.id + ''} title={<span>
               <i className='iconfont' dangerouslySetInnerHTML={{__html: m.icon}}></i>
-              <span style={{marginLeft: 10}}>{m.name}</span>
+              <span>{m.name}</span>
             </span>
             }>
               {

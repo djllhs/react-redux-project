@@ -6,6 +6,9 @@ import DmOnlineOrOffline from './dmOnlineOrOffline/DmOnlineOrOffline';
 import DmDeleteModal from './DeleteModal/DmDeleteModal';
 import IWBraftEditor from './IWBraftEditor/IWBraftEditor';
 import IWUeditor from './IWUeditor/IWUeditor';
+import * as forms from './FormItems';
+import IWUpload from './IWUpload/IWUpload';
+import DmSecondaryCategory from './dmSecondaryCategory/DmSecondaryCategory';
 
 export {
   IWMenu,
@@ -15,5 +18,8 @@ export {
   DmOnlineOrOffline,
   DmDeleteModal,
   IWBraftEditor,
-  IWUeditor
+  IWUeditor,
+  forms,
+  IWUpload,
+  DmSecondaryCategory
 };

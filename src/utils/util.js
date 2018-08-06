@@ -1,4 +1,4 @@
-
+import {message} from 'antd';
 /* global window,document,console, localStorage*/
 export const PAGESIZE = 10;
 export function isEmptyObj(obj) {
@@ -137,3 +137,32 @@ export function replaceEditorContentTag(html) {
   !html.startsWith(start) ? html = wrapDiv.replace('</div>', html + '</div>') : html;
   return html;
 }
+
+export const YMDHMS = 'YYYY-MM-DD HH:mm:ss';
+
+// 通过值 获取属性
+export function getKeyByValue(obj, value) {
+  for (let key in obj)
+    if (obj[key] === value) return key.toString();
+}
+
+export function uploadFile(info) {
+  if (info.file.status === 'done') {
+    if (info.file.response.success)
+      message.success(`${info.file.name} 上传成功。`);
+    else {
+      message.error(info.file.response.msg);
+      return;
+    }
+  } else if (info.file.status === 'error') {
+    message.error(`${info.file.name} 上传失败。`);
+    return;
+  }
+}
+
+// 数组去重
+export const arrayToHeavy = (array) =>  {
+  const set = new Set(array);
+  array = Array.from(set);
+  return array;
+};

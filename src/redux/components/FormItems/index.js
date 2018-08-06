@@ -2,7 +2,7 @@
  * @Author: daijialing
  * @Date: 2018-07-06 14:39:25
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-23 17:28:52
+ * @Last Modified time: 2018-08-01 15:57:52
  */
 
 import React from 'react';
@@ -17,7 +17,7 @@ const Option = Select.Option;
 const FormItem = Form.Item;
 
 // 下拉选项
-export const options = (typesObj) => {
+export const renderOptions = (typesObj) => {
   const arr = [];
   for (let [key, value] of Object.entries(typesObj)) {
     const NewOption = <Option value = { key } key = { key } > { value} </Option>;
@@ -48,7 +48,7 @@ export const FormSelect = (props) => {
         onChange = {props.onChange}
       >
         {props.defaultValue != null ? props.defaultOption : null}
-        { options(props.typesObj)}
+        { renderOptions(props.typesObj)}
       </Select>
     </FormItem>
   );

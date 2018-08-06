@@ -2,7 +2,7 @@
  * @Author: daijialing
  * @Date: 2018-07-10 10:28:44
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-30 16:26:45
+ * @Last Modified time: 2018-08-01 16:09:26
  * 查询条件组件
  */
 
@@ -31,7 +31,11 @@ class ConditionsOfQuery extends React.Component {
     return (
       <Form horizontal='true' className='conditionForm'>
         <Row style={{padding: '10px 0'}}>
-          <AddOrEditModal isEdit = {false} record = {{}}  _this = {_this} reload = {this.props.onClick}/>
+          <AddOrEditModal isEdit = {false} record = {{}}
+            _this = {_this} reload = {this.props.onClick}
+            locations = {this.props.locations}
+            actions = {this.props.actions}
+          />
         </Row>
         <Row type='flex' justify='start' align='start'>
           <Col span={6}>

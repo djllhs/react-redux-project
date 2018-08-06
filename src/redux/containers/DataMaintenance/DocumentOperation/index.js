@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-17 10:42:30
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-30 14:29:32
+ * @Last Modified time: 2018-08-01 15:36:22
  * 文案操作
  */
 import React from 'react';
@@ -133,12 +133,14 @@ class DocumentOperation extends React.Component {
         title: '操作',
         width: '12%',
         render: record => {
+          let url = `${DOCUMENT_OPERATION_LIST}/${record.id}/delete`;
           return (
             <div style={{display: 'inline-flex'}}>
               <AddOrEditModal isEdit = {true} record = {record} _this = {this} reload = {this.handleClickQuery}/>
               <DmDeleteModal record = {record}
                 callback = {() => {this.fetchList(Object.assign(requestParams, {currentPage: getCurrentPage(pagination.current, pagination)})); }}
                 content = '确认删除该文案？'
+                url = {url}
               />
               <a href={record.url} target="blank">
                 <i className="iconfont" title="获取链接">&#xe6ad;</i>

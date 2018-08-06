@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-06-13 17:50:39
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-23 17:22:51
+ * @Last Modified time: 2018-08-02 10:13:32
  */
 const DEVELOPMENT = 'iwatch.daily.bookln.cn';
 const PRODUCTION = window.location.host;
@@ -13,6 +13,8 @@ const HOST        = 'https://' + (isDP ? DEVELOPMENT : PRODUCTION);
 
 export const LOGIN = `${HOST}/users/login`; // 登录
 export const LOGIN_OUT = `${HOST}/users/log_out`; // 退出登录
+export const UPLOAD_FILE = `${HOST}/qiniu/files`; // 上传图片，文件
+export const CATALOGUE_LIST = `${HOST}/cats`; // 获取 目录
 
 export const USER_BASIC_INFO_LIST = `${HOST}/userloginhistorys`; // 用户基本信息列表
 export const USER_BASIC_INFO_CREATE_ACCOUNT = `${HOST}/users`; // 创建用户

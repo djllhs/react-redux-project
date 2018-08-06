@@ -94,7 +94,7 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "antd": "^3.7.0",
+    "antd": "^3.7.3",
     "axios": "^0.18.0",
     "babel-plugin-antd": "^0.5.1",
     "babel-plugin-import": "^1.8.0",
