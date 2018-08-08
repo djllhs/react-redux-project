@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import {Modal, Button, Form, Input, message} from 'antd';
+import {Modal, Button, Form, Input, message, Row, Col} from 'antd';
 import { IWBraftEditor } from 'components';
 import { DOCUMENT_OPERATION_LIST } from '@/api';
 import * as actions from 'actions';
@@ -70,8 +70,8 @@ class AddOrEditModal extends React.Component {
       height: 300
     };
     const formItemLayout = {
-      labelCol: { span: 7 },
-      wrapperCol: { span: 14 }
+      labelCol: { span: 5 },
+      wrapperCol: { span: 17 }
     };
     return (
       <div>
@@ -89,32 +89,39 @@ class AddOrEditModal extends React.Component {
             <Button onClick = {this.onCancel}>取消</Button>,
             <Button onClick = {this.onOk} loading = {_this.props.documentOperation.isLoading}  type="primary">确定</Button>
           ]}
+          style = {{top: 10}}
         >
-          <Form horizontal="true">
-            <FormItem {...formItemLayout} label="名称" hasFeedback>
-              {
-                getFieldDecorator('code', {
-                  rules: [{required: true, message: '值不能为空'}],
-                  initialValue: record.code
-                })(
-                  <Input placeholder="请输入名称" name="code"/>
-                )
-              }
-
-            </FormItem>
-            <FormItem label="标题" {...formItemLayout} hasFeedback>
-              {
-                getFieldDecorator('title', {
-                  rules: [{required: true, message: '值不能为空'}],
-                  initialValue: record.title
-                })(
-                  <Input placeholder="请输入标题" name="title"/>
-                )
-              }
-            </FormItem>
+          <Form style={{maxHeight: window.innerHeight - 200, overflowY: 'auto'}}>
+            <Row>
+              <Col span = {12}>
+                <FormItem {...formItemLayout} label="名称" hasFeedback>
+                  {
+                    getFieldDecorator('code', {
+                      rules: [{required: true, message: '值不能为空'}],
+                      initialValue: record.code
+                    })(
+                      <Input placeholder="请输入名称" name="code"/>
+                    )
+                  }
+                </FormItem>
+              </Col>
+              <Col span = {12}>
+                <FormItem label="标题" {...formItemLayout} hasFeedback>
+                  {
+                    getFieldDecorator('title', {
+                      rules: [{required: true, message: '值不能为空'}],
+                      initialValue: record.title
+                    })(
+                      <Input placeholder="请输入标题" name="title"/>
+                    )
+                  }
+                </FormItem>
+              </Col>
+            </Row>
+            <IWBraftEditor {...editorProps} ref={ref => this.iWBraftEditor = ref}/>
+            {showContentError && <p style={{color: 'red'}}>值不能为空</p>}
           </Form>
-          <IWBraftEditor {...editorProps} ref={ref => this.iWBraftEditor = ref}/>
-          {showContentError && <p style={{color: 'red'}}>值不能为空</p>}
+          
         </Modal>
       </div>
     );

@@ -10,6 +10,7 @@ import userBookSelf from './userBookSelf';
 import userErrorInfo from './userErrorInfo';
 import documentOperation from './documentOperation';
 import bannerManage from './bannerManage';
+import pushManage from './pushManage';
 
 
 const reducer = combineReducers({
@@ -23,7 +24,8 @@ const reducer = combineReducers({
   userBookSelf,
   userErrorInfo,
   documentOperation,
-  bannerManage
+  bannerManage,
+  pushManage
 });
 
 export default reducer;

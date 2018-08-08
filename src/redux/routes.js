@@ -11,6 +11,7 @@ import {
   DocumentOperation,
   BannerManage,
   TestUeditor
+  PushManage
 } from './containers';
 const ChildrenRoutes  = props => {
   const {match} = props;
@@ -27,6 +28,7 @@ const ChildrenRoutes  = props => {
       <Route  path = {`${match.path}/documentsOperation`}  component = {DocumentOperation}/>
       <Route  path = {`${match.path}/bannerManage`}  component = {BannerManage}/>
       <Route  path = {`${match.path}/testUeditor`}  component = {TestUeditor}/>
+      <Route  path = {`${match.path}/pushManage`}  component = {PushManage}/>
 
     </Switch>
   );

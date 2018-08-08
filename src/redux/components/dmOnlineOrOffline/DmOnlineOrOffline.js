@@ -8,17 +8,17 @@
  */
 import React from 'react';
 import { Button, Modal, message } from 'antd';
-import { DOCUMENT_OPERATION_LIST } from '@/api';
 import {  postData } from 'utils/fetchData';
 
 const DmOnlineOrOffline = (props) => {
   const requestType = !props.record.status ? '/online' : '/offline';
-  const url = `${DOCUMENT_OPERATION_LIST}/${props.record.id}${requestType}`,
-    tips = !props.record.status ? '文案上线成功' : '文案下线成功',
+  const url = `${props.api}/${props.record.id}${requestType}`,
+    tips = !props.record.status ? `${props.moduleName}上线成功` : `${props.moduleName}下线成功`,
     btn = props.record.status ? '点击下线' : '点击上线',
     icon = props.record.status ? 'delete' : 'check',
     color = props.record.status ? 'gray' : 'green',
-    content = props.record.status ? '确定使该文案下线' : '确定使该文案上线';
+    content = props.record.status ? `确定使该${props.moduleName}下线？` : `确定使该${props.moduleName}上线？`;
+
   return (
     <Button type = 'ghost' icon = {icon} style = {{color}} onClick = {() => {
       Modal.confirm({

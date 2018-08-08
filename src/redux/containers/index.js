@@ -11,6 +11,7 @@ import DocumentOperation from './DataMaintenance/DocumentOperation';
 import BannerManage from './DataMaintenance/BannerManage';
 
 import TestUeditor from './Test/TestUeditor';
+import PushManage from './DataMaintenance/PushManage';
 export {
   Home,
   Default,
@@ -22,5 +23,6 @@ export {
   ErrorInfo,
   DocumentOperation,
   BannerManage,
+  PushManage,
   TestUeditor
 };
