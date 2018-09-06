@@ -2,7 +2,7 @@
  * @Author: daijialing
  * @Date: 2018-07-30 15:18:52
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-08-02 10:10:32
+ * @Last Modified time: 2018-09-06 14:55:15
  * banner管理
  */
 /* global console */
@@ -18,6 +18,7 @@ import {  DmDeleteModal } from 'components';
 import { IWBreadcrumb } from 'components';
 import * as actions from 'actions';
 import { BANNER_MANAGEMENT_LIST, BANNER_MANAGEMENT_LOCATIONS,  BANNER_MANAGEMENT_ACTIONS} from '@/api';
+import Dotdotdot from 'react-dotdotdot';
 class BannerManage extends React.Component {
   constructor(props) {
     super(props);
@@ -165,7 +166,7 @@ class BannerManage extends React.Component {
         title: '参数',
         dataIndex: 'actionContent',
         width: '12%',
-        render: text => isValidValue(text)
+        render: text => <Dotdotdot clamp={2}><span title={text}>{isValidValue(text)}</span></Dotdotdot>
       },
       {
         title: '上线情况',

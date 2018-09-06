@@ -10,6 +10,7 @@ import * as actions from 'actions';
 import './index.css';
 const {Header, Sider, Content} = Layout;
 
+
 class Home extends React.Component {
   constructor(props) {
     super(props);

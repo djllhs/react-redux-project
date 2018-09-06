@@ -10,8 +10,8 @@ import {
   ErrorInfo,
   DocumentOperation,
   BannerManage,
+  PushManage,
   TestUeditor
-  PushManage
 } from './containers';
 const ChildrenRoutes  = props => {
   const {match} = props;

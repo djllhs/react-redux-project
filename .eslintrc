@@ -212,5 +212,12 @@
 
     "react/jsx-uses-vars": 2,
     "react/jsx-uses-react": 2
+  },
+  "globals": {
+    "window": true,
+    "console": true,
+    "localStorage": true,
+    "sessionStorage": true,
+    "document": true
   }
 }

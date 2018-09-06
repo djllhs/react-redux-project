@@ -2,11 +2,11 @@
  * @Author: daijialing
  * @Date: 2018-08-02 09:23:58
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-08-02 11:20:17
+ * @Last Modified time: 2018-09-06 14:51:08
  * 二级类目
  */
 import React from 'react';
-import { Input, Button, Icon, Modal, Tag, Row, Col } from 'antd';
+import { Input, Icon, Modal, Tag, Row, Col } from 'antd';
 import { CATALOGUE_LIST } from '@/api';
 import { fetchData } from 'utils/fetchData';
 import { arrayToHeavy } from 'utils/util';

@@ -1,7 +1,7 @@
 import React, {Component  } from 'react';
 import { connect } from 'react-redux';
 import {Table, message} from 'antd';
-import { isValidValue, getPagination, getTableScrollY, getCurrentPage, PAGESIZE } from 'utils/util';
+import { isValidValue, getPagination, getTableScrollY,  PAGESIZE } from 'utils/util';
 import * as actions from 'actions';
 import { PUSH_MANAGEMENT_LIST } from '@/api';
 import { PushTypes, PushStatus } from 'utils/dtoTypes';
@@ -20,7 +20,7 @@ class PushManage extends Component {
       scrollY: 0
     };
   }
-  
+
   componentDidMount() {
     this.setState({
       scrollY: getTableScrollY()
@@ -61,7 +61,7 @@ class PushManage extends Component {
     this.fetchList(Object.assign(this.state.requestParams, {currentPage: page.current}));
     this.props.dispatch(actions.pageChange(page));
   }
-  
+
   render() {
     const columns = [
       {
@@ -139,7 +139,7 @@ class PushManage extends Component {
           rowKey={record => record.id}
           scroll={{ y: this.state.scrollY}}
         />
-        
+
       </div>
     );
   }

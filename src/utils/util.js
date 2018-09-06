@@ -1,5 +1,4 @@
 import {message} from 'antd';
-/* global window,document,console, localStorage*/
 export const PAGESIZE = 10;
 export function isEmptyObj(obj) {
   let name;
@@ -57,14 +56,20 @@ export function getPagination(pagination) {
 
 // 计算 table 的scrollY 高度
 export function getTableScrollY(isShowPage = true) {
-  const formHeight = document.getElementsByClassName('conditionForm')[0].offsetHeight,
-    tableHeaderHeight = document.getElementsByClassName('ant-table-thead')[0].offsetHeight,
-    headerHeight = document.getElementsByClassName('home_inner_header')[0].offsetHeight,
-    breadcrumbHeight = document.getElementsByClassName('breadcrumb')[0].offsetHeight,
+  const formNode = document.getElementsByClassName('conditionForm'),
+    tableHeadNode = document.getElementsByClassName('ant-table-thead'),
+    headerNode = document.getElementsByClassName('home_inner_header'),
+    breadcrumbNode = document.getElementsByClassName('breadcrumb');
+
+  const formHeight = formNode && formNode.length >= 1 ?  formNode[0].offsetHeight : 0,
+    tableHeaderHeight = tableHeadNode && tableHeadNode.length >= 1 ?  tableHeadNode[0].offsetHeight : 0,
+    headerHeight = headerNode && headerNode.length >= 1 ?  headerNode[0].offsetHeight : 0,
+    breadcrumbHeight = breadcrumbNode && breadcrumbNode.length >= 1 ?  breadcrumbNode[0].offsetHeight : 0,
     tablePaginationHeight = 64,
     padding = 20;
+  const scrollY = window.innerHeight - formHeight - tableHeaderHeight - tablePaginationHeight - headerHeight - padding - breadcrumbHeight;
   console.log(formHeight, tableHeaderHeight, headerHeight);
-  return window.innerHeight - formHeight - tableHeaderHeight - tablePaginationHeight - headerHeight - padding - breadcrumbHeight;
+  return scrollY;
 }
 
 // 计算size
@@ -86,11 +91,11 @@ export function getFileSize(size, unit = 1024, decimal = 2) {
 
 // 计算金额
 export function getAmount(amount, decimal = 2) {
-  if (amount == null)
-    return '--';
-
   if (amount === 0)
     return 0;
+  if (!amount)
+    return '--';
+
 
   return (amount / 100).toFixed(decimal);
 }
@@ -106,7 +111,7 @@ export const myRouter = {
         if (pathName === menu.url) {
           console.log('menu.id :', menu.id);
           callback(menu.id);
-          return;
+          return false;
         }
       });
     }
@@ -125,7 +130,7 @@ export const myRouter = {
 
 // 获取当前页。当操作为删除的时候
 export function getCurrentPage(current, page) {
-  if (page.total >= page.pageSize && page.total % page.pageSize == 1)
+  if (page.total >= page.pageSize && page.total % page.pageSize === 1)
     return current - 1;
   return current;
 }

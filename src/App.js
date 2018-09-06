@@ -45,12 +45,9 @@ class App extends Component {
 
   }
   render() {
-    const {counter} = this.props;
     const {getFieldDecorator} = this.props.form;
     return (
       <div className='app_container'>
-        <span>{counter.count}</span>
-        <Button onClick={this.handleClick}>Increase</Button>
         <Form horizontal='true' className='formWrap'>
           <Row className='app_row'>
             <Col span={13}>
@@ -96,10 +93,8 @@ class App extends Component {
     );
   }
 }
-// App.contextTypes = { store: PropTypes.object };
 App = Form.create()(App);
 
 export default connect(
-  state => ({ counter: state.counter, login: state.login}),
-  // dispatch => bindActionCreators({getTest}, dispatch)
+  state => ({ login: state.login}),
 )(App);

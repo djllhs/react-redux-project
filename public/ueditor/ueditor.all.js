@@ -6831,6 +6831,7 @@ var fillCharReg = new RegExp(domUtils.fillChar, 'g');
             utils.extend(this.options, obj, true);
         },
         getOpt:function(key){
+            console.log(this.options);
             return this.options[key]
         },
         /**
@@ -23202,7 +23203,8 @@ UE.plugins['catchremoteimage'] = function () {
             catcherActionUrl = me.getActionUrl(me.getOpt('catcherActionName')),
             catcherUrlPrefix = me.getOpt('catcherUrlPrefix'),
             catcherFieldName = me.getOpt('catcherFieldName');
-
+        console.log('-----------catcherLocalDomain----------------',catcherLocalDomain,catcherUrlPrefix);
+        console.log('-----------catcherLocalDomain----------------',catcherActionUrl,catcherFieldName);
         var remoteImages = [],
             imgs = domUtils.getElementsByTagName(me.document, "img"),
             test = function (src, urls) {
@@ -23224,17 +23226,19 @@ UE.plugins['catchremoteimage'] = function () {
                 continue;
             }
             var src = ci.getAttribute("_src") || ci.src || "";
+            console.log('------------src---------------',src);
             if (/^(https?|ftp):/i.test(src) && !test(src, catcherLocalDomain)) {
                 remoteImages.push(src);
             }
         }
-
+        console.log("----------------remoteImages---",remoteImages);
         if (remoteImages.length) {
             catchremoteimage(remoteImages, {
                 //成功抓取
                 success: function (r) {
                     try {
                         var info = r.state !== undefined ? r:eval("(" + r.responseText + ")");
+                        console.log('------------info---------------',info);
                     } catch (e) {
                         return;
                     }
@@ -23247,6 +23251,7 @@ UE.plugins['catchremoteimage'] = function () {
                         for (j = 0; cj = list[j++];) {
                             if (oldSrc == cj.source && cj.state == "SUCCESS") {  //抓取失败时不做替换处理
                                 newSrc = catcherUrlPrefix + cj.url;
+                                console.log('------------newSrc---------------',newSrc);
                                 domUtils.setAttributes(ci, {
                                     "src": newSrc,
                                     "_src": newSrc
@@ -23276,6 +23281,10 @@ UE.plugins['catchremoteimage'] = function () {
                     'onerror': callbacks["error"]
                 };
             opt[catcherFieldName] = imgs;
+            console.log('-------------params------------',params);
+            console.log('-------------catcherActionUrl------------',catcherActionUrl);
+            console.log('-------------url------------',url);
+            console.log('-------------isJsonp------------',isJsonp);
             ajax.request(url, opt);
         }
 

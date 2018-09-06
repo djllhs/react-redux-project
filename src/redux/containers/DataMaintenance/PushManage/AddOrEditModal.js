@@ -3,7 +3,7 @@
  * @Author: daijialing
  * @Date: 2018-07-25 17:46:19
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-30 11:10:58
+ * @Last Modified time: 2018-09-06 14:51:46
  */
 
 import React from 'react';
@@ -53,9 +53,9 @@ class AddOrEditModal extends React.Component {
     });
   }
   render() {
-    const {isEdit, record, _this} = this.props;
+    const {isEdit, record } = this.props;
     const {getFieldDecorator} = this.props.form;
- 
+
     const formItemLayout = {
       labelCol: { span: 5 },
       wrapperCol: { span: 17 }
@@ -79,7 +79,7 @@ class AddOrEditModal extends React.Component {
           style = {{top: 10}}
         >
           <Form style={{maxHeight: window.innerHeight - 200, overflowY: 'auto'}}>
-          
+
             <FormItem {...formItemLayout} label="推送编号" hasFeedback>
               {
                 getFieldDecorator('id', {
@@ -114,7 +114,7 @@ class AddOrEditModal extends React.Component {
                 )
               }
             </FormItem>
-      
+
             <FormItem label="推送内容" {...formItemLayout} hasFeedback>
               {
                 getFieldDecorator('content', {
@@ -145,9 +145,9 @@ class AddOrEditModal extends React.Component {
                 )
               }
             </FormItem>
-      
+
           </Form>
-          
+
         </Modal>
       </div>
     );

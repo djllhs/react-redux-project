@@ -2,7 +2,7 @@
  * @Author: daijialing
  * @Date: 2018-07-25 15:19:12
  * @Last Modified by: daijialing
- * @Last Modified time: 2018-07-25 16:51:07
+ * @Last Modified time: 2018-09-06 11:45:21
  * 面包屑导航
  */
 import React from 'react';
@@ -12,9 +12,6 @@ import { Link } from 'react-router-dom';
 const BreadcrumbItem = Breadcrumb.Item;
 
 class IWBreadcrumb extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     let { data, collapse, extra } = this.props;
     collapse = collapse === true;
